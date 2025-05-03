@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: hotel-scraper
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free 
