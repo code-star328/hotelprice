@@ -25,10 +25,16 @@ let browser;
 // Initialize browser on server start
 (async () => {
     try {
-        browser = await puppeteer.launch({
-            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+        browser = await puppeteer.launch({            
             headless: 'new', // or true
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],            
+            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium',
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-gpu',
+                '--window-size=1920,1080',
+              ],           
         });
         console.log('Browser instance created successfully');
     } catch (error) {
