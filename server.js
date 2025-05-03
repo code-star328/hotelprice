@@ -1,5 +1,5 @@
 import express, { response } from 'express';
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
@@ -26,17 +26,9 @@ let browser;
 (async () => {
     try {
         browser = await puppeteer.launch({
-            headless: "new",
-            args: [
-                '--no-sandbox',
-                '--disable-setuid-sandbox',
-                '--disable-dev-shm-usage',
-                '--disable-gpu',
-                '--no-first-run',
-                '--no-zygote',
-                '--single-process'
-            ],
-
+            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+            headless: 'new', // or true
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],            
         });
         console.log('Browser instance created successfully');
     } catch (error) {
